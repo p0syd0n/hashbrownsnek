@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Javascript chat</title>
+    <link rel="stylesheet" href="{{ url_for('static',    filename='css/template.css') }}">
+  </head>
+  <body>
+  <body style="background-color:#000000;">
+    <h1> send: </h1>
+    <p style="color:White; text-align:center;">Your string will show up here:</p>
+    <p style="color:White; text-align:center;" id="demo"></p>
+
+    <script>
+      Object.defineProperty(window, 'test', {
+      get: function () {
+          console.log("testboi")
+      }
+      });
+      document.getElementById("demo").innerHTML = decrypt(prompt("salt: "), prompt("string: "));
+    </script>
+  </body>
+</html>

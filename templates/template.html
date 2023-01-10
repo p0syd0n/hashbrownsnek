@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Classroom</title>
+    <link rel="icon" type="image/x-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIUAAACFCAMAAABCBMsOAAAArlBMVEX///84jjz/wQel1qcufTL/vwD/57j/qwD/wwAqjD2XoyvQsRgAdzQ2izr/0mkUij/YtRhPmlL5+/lmomgvijP/37hspm7/pgD/u1as26613baLlyYfejMmhyv/+e3/yk3/9uN4tnv/1XX/z1/N386Mw46VypdHlkqawJz//fb/79D/wSX/xjL/5K3ktxKDlCjg6+GLt40VhBx+sYCzz7VkqGdYnFvg8eEAhDHrvzUwQ/mcAAADi0lEQVR4nO2bbVebMBSAQVatbnOjvcOhRm3lzfpGqeD2///YgBaSkBQQAj3u3Occ/VAvtw9JuKl6o2kIgiAIgiAD87A6HprVQ4PDavl4NBmao8flqk5imYaMwWSy3Otw9zSOQ+7xdCeXuBlRItO4kVrcjymRatzLJI7HlUg1jiUWt6Nb3EqW5tgSqYa4QJ8PYPEsWCwZi+mQMBZi0TinFi9fh+SFWpzXWExfvw3J67SdxdX1l+G4vkKLT2pxdvp9OE7PWlvow4EWaIEWaIEWaMEAEeRfh7QA2DhhGDobaO2h3oLE4e7qMCGHsiBr5vp1Sw3VFmBxCax2k6LaIgq5BGF0CAvYVDJsWg2GYgvyVsnw1mplqB4Lp5LBOchYhJUM4SHGgghjMYoFAFch69dFJViVBegL13NjmrpSLriCAXEau9BlHr0sIDZswzBsj74U8VPi0Hrhe3msEUs0eln4xhbbKzNDMmOunyX0B7lEhq/WAjyj0KA3SCyqMZuXqwLiQsJwxcHoNRZlYjYz+MWkOD7zfm4Za6sdC59aMCtDBzIPHMcJ5oS9aY9aiFMygEXmEUUR4Qd+MAtCEy+4twSSwb+0oMpiIeu1OsvMzO0B8ZPNOngL1pvEZ0zKgasY97bQwbUrjwiJ1g7dSkJnHRU3XjwktuQR6Vs707Jl2565S0z8agFPS7i/8wDTS2OlRavvPgK6aRazARDMhAxp0QjKzcM3TWkBV7in0jpRhasbUvqtC8iWX/YduJopDIdFsmWbRm1jFVqAH6cb6rZauAuzupnyWKZFY2O/atLRAvTETRcmLRh2rYSmcbGGF6uwgMSjWXPeGyzePS6cPlfdLdhCuMu6f1FsmQlXsMWri4UoYVw2WlxWL2E1ulj41YSdLNiPOx0smA8s1KJBQtNEC+ajURcLcUK6WSzQQpWFkDBdnU1IVmcvi2xrFJg3Ibmm1zMiBZqovfo//nsnWqAFWqAFWqCFQovmTXYEC9OSMe/9W9GHIIGQNoP7/w1afF6LHx35s8+CDWppcfTysyt/f0vhYmp7Gtn+zs5MJxcnMtiuToqkv1NRr+tEanEiTS7pdVXV9/sBDUnfr7Ie6D0akkBJD7S6fvC2oyHtB1fXG99OQ94br/CcQJtJ2XdOYHgNJv1eCU3h+ZEGjbrzI5rKszQXMk6KszR3dRK5iKLTQ7+k5OeKmhQQBEEQBEF68w+PycmIvwqlKAAAAABJRU5ErkJggg==">
+    <script>
+      var x = prompt("password?")
+      if (x == "q") {
+        alert("access granted")
+      }
+      else {
+        location.reload()
+      }
+    </script>
+    <link rel="stylesheet" href="{{ url_for('static',    filename='css/template.css') }}">
+</head>
+  <body>
+    <body style="background-color:#000000;">
+    <header>
+      <div class="container">
+        <h1 class="logo">Directory:</h1>
+        
+        <strong><nav>
+          <ul class="menu">
+            <p style="color:#ffffff;">Note: password will need to be re-entered after a page reload</p>
+            <li><a href="/js_enc"style="color:#ffffff;">js encryption</a></li>
+            <li><a href="/js_dec"style="color:#ffffff;">js decryption</a></li>
+            <li><a href="/hashboi"style="color:#ffffff;">hashboi</a></li>
+<!--             <li><a href="/ip"style="color:#ffffff;">Admin Console</a></li> -->
+            <a href="https://5chan.posydon.repl.co"style="color:#ffffff;">5chan</a>
+<!--           <a href="chrome://inducebrowsercrashforrealz"style="color:#ffffff;">beans</a> -->
+            <li><a href="{{ url_for('about') }}"style="color:#ffffff;">About</a></li>
+          </ul>
+        </nav></strong>
+      </div>
+    </header>
+    
+{% block content %}
+{% endblock %}
+
+ </body>
+</html>
