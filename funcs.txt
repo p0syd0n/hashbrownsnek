@@ -1,0 +1,35 @@
+/admin
+request password to display this page
+
+/form
+shows form.html
+
+/locs
+reads and shows "locations_of_users.txt"
+
+/cresh
+attempts to redirect user to cresh.html -> chrome crash page
+
+/dirt
+displays ip meme
+
+write(ip, filename)
+writes ip and time and date to filename
+
+write_dump(ip, filename)
+writes to ip dump file, checks if ip is laready exsistent in file
+
+/geo
+gets geolocation info about user, returns location_data, writes location_data to location.txt
+
+beans()
+gets ip and location and writes to locations_of_users.txt
+
+beans2()
+gets ip and location and returns it
+
+/g
+jsonify ip return (broken)
+
+log()
+writes ip to output.txt using write() function

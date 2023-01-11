@@ -4,6 +4,9 @@ from flask import jsonify
 from datetime import datetime
 import pytz
 import requests
+from replit import db
+import os
+
 
 app = Flask('app')
 ip_ban_list = ['']
@@ -15,14 +18,38 @@ def block_method():
   if ip in ip_ban_list:
     return "Fuck You"
 
+def make_tree(path):
+  tree = dict(name=os.path.basename(path), children=[])
+  try: lst = os.listdir(path)
+  except OSError:
+      pass #ignore errors
+  else:
+      for name in lst:
+          fn = os.path.join(path, name)
+          if os.path.isdir(fn):
+              tree['children'].append(make_tree(fn))
+          else:
+              with open(fn) as f:
+                  contents = f.read()
+              tree['children'].append(dict(name=name, contents=contents))
+  return tree
+
+@app.route('/admin', methods=["GET", "POST"])
+def admin():
+  if request.method == "POST":
+    # getting input with name = fname in HTML form
+    first_name = request.form.get("fname")
+    if first_name == "12345":
+      return make_tree("/templates")
+  return render_template("admin_login.html")
 
 @app.route('/form')
 def form():
   return render_template('form.html')
 
 
-@app.route('/admin')
-def admin():
+@app.route('/locs')
+def locs():
   with open("locations_of_users.txt", "r") as file:
     return file.read()
   #return render_template('form.html')
@@ -44,6 +71,7 @@ def write(ip, filename):
     #current_time = datetime.now()
     file.write(f"\nip: {ip} - - {datetime.now(pytz.timezone('US/Eastern'))}")
     file.close()
+
 def write_dump(ip, filename):
   with open(filename, "a") as file:
     contents = file.read()
