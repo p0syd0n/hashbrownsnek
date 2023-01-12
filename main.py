@@ -18,6 +18,8 @@ def block_method():
   if ip in ip_ban_list:
     return "Fuck You"
 
+
+
 def make_tree(path):
   tree = dict(name=os.path.basename(path), children=[])
   try: lst = os.listdir(path)
@@ -34,6 +36,7 @@ def make_tree(path):
               tree['children'].append(dict(name=name, contents=contents))
   return tree
 
+
 @app.route('/admin', methods=["GET", "POST"])
 def admin():
   if request.method == "POST":
@@ -43,9 +46,11 @@ def admin():
       return make_tree("/templates")
   return render_template("admin_login.html")
 
+
 @app.route('/form')
 def form():
   return render_template('form.html')
+
 
 
 @app.route('/locs')
@@ -55,9 +60,11 @@ def locs():
   #return render_template('form.html')
 
 
+
 @app.route('/cresh')
 def cresh():
   return render_template('cresh.html')
+
 
 
 @app.route('/dirt')
@@ -65,21 +72,32 @@ def dirt():
   return render_template('dirt.html')
 
 
-def write(ip, filename):
+
+def write_func(ip, filename):
   with open(filename, "a") as file:
     #today = date.today()
     #current_time = datetime.now()
     file.write(f"\nip: {ip} - - {datetime.now(pytz.timezone('US/Eastern'))}")
     file.close()
 
-def write_dump(ip, filename):
+def write_func_2(ip, filename):
   with open(filename, "a") as file:
-    contents = file.read()
+    #today = date.today()
+    #current_time = datetime.now()
+    file.write(f"{ip}\n")
+    file.close()
+
+def write_dump(ip, filename):
+  with open(filename, "r") as file_readable:
+    contents = file_readable.read()
+    file_readable.close()
+  with open(filename, "a") as file:
     list = contents.split()
     if ip in list:
       pass
     else: 
-      file.write(ip)
+      write_func_2(ip, "ip_dump.txt")
+      # write_func(ip, "ip_dump.txt")
       file.close()
 
 @app.route('/geo')
@@ -107,7 +125,7 @@ def geo():
     "country area": response.get("country_area"),
     "country population": response.get("country_population"),
   }
-  write(location_data, "location.txt")
+  write_func(location_data, "location.txt")
   return location_data
 
 
@@ -135,7 +153,7 @@ def beans():
     "country area": response.get("country_area"),
     "country population": response.get("country_population"),
   }
-  write(location_data, "locations_of_users.txt")
+  write_dump(location_data, "ip_dump_w-l.txt")
   #return location_data
 
 
@@ -169,11 +187,11 @@ def beans2():
 @app.route("/g", methods=["GET"])
 def g():
   #ip = jsonify({'ip': request.remote_addr}), 200
-  #write(ip, "output.txt")
+  #write_func(ip, "output.txt")
   if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-    write(request.environ['REMOTE_ADDR'], "output.txt")
+    write_func(request.environ['REMOTE_ADDR'], "output.txt")
   else:
-    write(request.environ['HTTP_X_FORWARDED_FOR'],
+    write_func(request.environ['HTTP_X_FORWARDED_FOR'],
           "output.txt")  # if behind a proxy
 
   return jsonify({'ip': request.remote_addr}), 200
@@ -181,11 +199,11 @@ def g():
 
 def log():
   #ip = jsonify({'ip': request.remote_addr}), 200
-  #write(ip, "output.txt")
+  #write_func(ip, "output.txt")
   if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-    write(request.environ['REMOTE_ADDR'], "output.txt")
+    write_func(request.environ['REMOTE_ADDR'], "output.txt")
   else:
-    write(request.environ['HTTP_X_FORWARDED_FOR'],
+    write_func(request.environ['HTTP_X_FORWARDED_FOR'],
           "output.txt")  # if behind a proxy
 
   #return jsonify({'ip': request.remote_addr}), 200
@@ -235,7 +253,7 @@ def f():
   if request.method == "POST":
     # getting input with name = fname in HTML form
     first_name = request.form.get("fname")
-    write(beans2(), f"dump/{first_name}.txt")
+    write_func(beans2(), f"dump/{first_name}.txt")
   #return beans2()
   return render_template("name_form.html")
 
@@ -249,7 +267,7 @@ def hello_world():
 @app.route("/")
 def main():
   log()
-  beans()
+  write_dump(get_ip(), "ip_dump.txt")
   return render_template("template.html")
 
 
