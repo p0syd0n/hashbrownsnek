@@ -1,2 +1,0 @@
-
-ip: {'ip': '68.112.39.194', 'city': 'Rutland', 'region': 'Massachusetts', 'country': 'United States', 'version': 'IPv4', 'region_code': 'MA', 'country_code': 'US', 'country capital': 'Washington', 'country tld': '.us', 'in eu': False, 'postal': '01543', 'latitude': 42.3775, 'longitude': -71.9453, 'timezone': 'America/New_York', 'utc_offset': '-0500', 'country calling code': None, 'currency name': 'Dollar', 'country area': 9629091.0, 'country population': 327167434} - - 2023-01-11 15:55:08.918526-05:00
